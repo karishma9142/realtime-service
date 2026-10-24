@@ -51,9 +51,13 @@ export const initSocket = (server: http.Server) => {
             return;
         }
 
-        const userId = user._id;
+        const userId = String(user._id);
+        const room = `user:${userId}`;
 
-        socket.join(`user:${userId}`);
+        socket.join(room);
+
+        console.log("Socket user:", user);
+        console.log("Joined room:", room);
 
         if (user.restaurantId) {
             socket.join(`restaurant:${user.restaurantId}`);
